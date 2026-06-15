@@ -1,4 +1,4 @@
-# MorshuTalk
+# Tiberian Sun CABAL - Talk
 
 A currently unfinished fork of MorshuTalk intended to apply the logic proved in the original to CABAL from Tiberian Sun, played by Milton James.
 
