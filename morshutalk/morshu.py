@@ -1,3 +1,4 @@
+import io
 from os import path
 import numpy as np
 import random
@@ -7,41 +8,47 @@ from typing import List, Tuple, Callable, Literal
 
 from morshutalk.g2p import G2pProgress
 
+import yaml
+
 g2p = G2pProgress()
+
+config_yaml = yaml.load(open('../config.yaml','r'))
+
+filepath = path.join(config_yaml['speech02'], '00-i012.aud')
+battle_control_offline = AudioSegment.from_file(filepath)
 
 morshu_wav_fp = path.join(path.dirname(__file__), 'morshu.wav')
 morshu_wav = AudioSegment.from_wav(morshu_wav_fp)
 
+# typos in comments are intentional
+
 # Record that contains each recognizable phoneme in the morshu audio file,
 # along with the time that phoneme ends in milliseconds, and the priority (how the phoneme sounds compared to others).
-morshu_rec = np.rec.array([
-    # typos in comments are intentional
-    ('', 160, 0), ('L', 250, 2), ('AE', 348, 2), ('M', 420, 2), ('P', 510, 1),  # lamp
-    ('OY', 700, 2), ('L', 835, 1), ('', 1090, 0),  # oil
-    ('R', 1180, 2), ('OW', 1300, 2), ('', 1390, 0), ('P', 1490, 2), ('', 1850, 0),  # rope
-    ('B', 1895, 2), ('AA', 2090, 2), ('M', 2235, 2), ('Z', 2390, 2),  # bombs
-    ('', 2780, 0), ('Y', 2840, 2), ('UW', 2960, 2),  # you
-    ('W', 3030, 2), ('AA', 3110, 2), ('N', 3150, 1), ('IH', 3240, 2), ('T', 3370, 2), ('', 3810, 0),  # won it
-    ('IH', 3960, 2), ('T', 4070, 2), ('Y', 4260, 2), ('UH', 4400, 2), ('R', 4510, 2), ('Z', 4600, 2),  # it yours
-    ('M', 4675, 2), ('AY', 4810, 2), ('', 4885, 0),  # my
-    ('F', 4930, 2), ('R', 4980, 2), ('EH', 5100, 2), ('N', 5240, 2), ('D', 5300, 2), ('', 5520, 0),  # friend
-    ('AE', 5630, 2), ('Z', 5740, 2), ('L', 5870, 2), ('AO', 6000, 2), ('NG', 6140, 2),  # as long
-    ('AE', 6170, 1), ('Z', 6265, 2), ('Y', 6300, 2), ('UW', 6380, 2),  # as you
-    ('HH', 6450, 2), ('AE', 6510, 1), ('V', 6580, 2),  # have
-    ('IH', 6640, 2), ('N', 6670, 2), ('AH', 6747, 2), ('F', 6855, 2),  # enough
-    ('R', 6960, 2), ('UW', 7060, 2), ('B', 7170, 1), ('IY', 7340, 2), ('Z', 7520, 2), ('', 8236, 0),  # rubies
+battle_control_offline_rec = np.rec.array([
+    ('B', 41, 2), ('AE', 205, 1), ('L', 351, 2), #BA'L
+    ('K', 393, 2), ('AA', 470, 0), ('CH', 596, 1), ('R', 664, 1), ('AO', 840, 1), ('L', 959, 0), #COCHROL , AA should be AX if it were in cmu phoneme set
+    ('O', 1150, 2), ('F', 1281, 1), ('L', 1327, 1), ('N', 1758, 1), #OFFLINE
+], names=('phoneme', 'timing', 'priority'))
 
-    ('S', 8407, 2), ('AA', 8495, 2), ('R', 8570, 2), ('IY', 8630, 1),  # sorry
-    ('L', 8740, 2), ('IH', 8811, 2), ('NG', 8942, 2), ('K', 9014, 2), ('', 9251, 0),  # link
-    ('AY', 9384, 2), ('', 9467, 0), ('K', 9512, 2), ('AE', 9640, 2), ('N', 9716, 2), ('', 9844, 0),  # i can
-    ('G', 9894, 2), ('IH', 9985, 2), ('V', 10060, 2), ('', 10149, 0),  # give
-    ('K', 10256, 2), ('R', 10297, 2), ('EH', 10383, 2), ('IH', 10482, 1), ('', 10564, 0), ('T', 10617, 2),  # cre-it
-    ('', 10962, 0), ('K', 11019, 2), ('AH', 11100, 2), ('M', 11229, 2), ('B', 11246, 2), ('AE', 11369, 2),  # come ba-
-    ('', 11511, 0), ('W', 11590, 2), ('EH', 11622, 1), ('N', 11705, 2),  # when
-    ('Y', 11755, 2), ('UH', 11808, 2), ('R', 11864, 2), ('AH', 11959, 2),  # you're a
-    ('L', 12095, 2), ('IH', 12202, 2), ('L', 12386, 2),  # lil
-    ('', 12596, 0), ('M', 12748, 2), ('M', 12888, 2), ('M', 13037, 2), ('M', 13196, 2), ('', 13426, 0),  # MMMM
-    ('R', 13494, 2), ('IH', 13589, 2), ('', 13632, 0), ('CH', 13773, 2), ('ER', 13991, 2), ('', 13992, 0)  # richer
+filepath = path.join(config_yaml['speech02'], '00-i064.aud')
+unable_to_comply_building_in_progress = AudioSegment.from_file(filepath)
+
+unable_to_comply_building_in_progress_rec = np.rec.array([
+    ('AH', 95, 0), ('N', 198, 2), ('EY', 368, 1), ('B', 466, 1), ('L', 590, 1), #UNABLE
+    ('T', 627, 2), ('UW', 723, 1), #TO
+    ('K', 756, 1), ('AA', 841, 0), ('M', 920, 0), ('P', 1026, 1), ('L', 1047, 0), ('AY', 1455, 2), #COMPLY
+    ('B', 1485, 1), ('IH', 1538, 2), ('L', 1688, 0), ('D', 1800, 0), ('IH', 1839, 0), ('N', 1855, 0), #BUILDING
+    ('IH', 1904, 0), ('N', 2068, 0), #IN
+    ('P', 2137, 2), ('R', 2168, 1), ('AA', 2305, 2), ('G', 2424, 1), ('R', 2480, 0), ('EH', 2549, 2), ('S', 2777, 2), #PROGRESS
+], names=('phoneme', 'timing', 'priority'))
+
+filepath = path.join(config_yaml['speech02'], '00-i106.aud')
+qauternery_objective_achieved = AudioSegment.from_file(filepath)
+
+qauternery_objective_achieved_rec = np.rec.array([
+    ('K', 77, 2), ('W', 144, 2), ('AA', 272, 2), ('T', 371, 1), ('ER', 470, 1),('EH', 535, 2),('R', 569, 1),('IY', 718, 1), #QAUTER-ERY
+    ('AA', 778, 0), ('', 795, 0), ('J', 871, 2), ('EH', 1081, 1), ('K', 1105, 1),('T', 1140, 2),('IH', 1204, 1),('V', 1300, 2), #OBJECTIVE
+    ('AE', 1340, 1), ('CH', 1440, 2), ('IY', 1642, 2), ('V', 1872, 1), ('T', 1948, 1), #ACHIEVED
 ], names=('phoneme', 'timing', 'priority'))
 
 # substitutes to phonemes that morshu doesn't say (some of these are tentative
