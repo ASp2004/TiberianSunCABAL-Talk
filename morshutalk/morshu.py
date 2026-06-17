@@ -59,6 +59,30 @@ low_power_rec = np.rec.array([
     ('P', 455, 2), ('AW', 644, 2), ('W', 704, 1), ('ER', 843, 1), #POWER
 ], names=('phoneme', 'timing', 'priority'))
 
+filepath = path.join(config_yaml['speech02'], '00-i062.aud')
+training = AudioSegment.from_file(filepath)
+
+training_rec = np.rec.array([
+    ('', 11, 1),('T', 104, 2), ('R', 144, 2),('EY', 341, 2),('N', 391, 1),('NG', 613, 2),('', 633, 1), 
+], names=('phoneme', 'timing', 'priority'))
+
+filepath = path.join(config_yaml['speech02'], '00-i014.aud')
+building_infiltrated = AudioSegment.from_file(filepath)
+
+building_infiltrated_rec = np.rec.array([
+    ('', 14, 1),('B', 140, 2), ('IH', 202, 2),('L', 349, 2),('D', 391, 1),('IH', 518, 2),('NG', 701, 2), #BUILDING
+    ('IH', 768, 1),('N', 897, 2), ('F', 988, 2),('AH', 1047, 2),('L', 1133, 1),('CH', 1227, 2),('R', 1242, 0),('EY', 1325, 2),('T', 1403, 1),('ED', 1467, 1),('T', 1597, 1), #INFILTRATED
+], names=('phoneme', 'timing', 'priority'))
+
+filepath = path.join(config_yaml['speech02'], '00-i286.aud')
+you_have_lost = AudioSegment.from_file(filepath)
+
+you_have_lost_rec = np.rec.array([
+    ('Y', 93, 2), ('UW', 375, 2), #YOU
+    ('H', 402, 2), ('AE', 523, 2),('V', 601, 2), #HAVE
+    ('L', 676, 2), ('AA', 973, 2), ('S', 1205, 2), ('T', 1345, 2), #LOST
+], names=('phoneme', 'timing', 'priority'))
+
 filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
 nod02 = AudioSegment.from_file(filepath)
 
@@ -106,8 +130,17 @@ nod02_rec = np.rec.array([
     ('L', 13292, 1), ('OY', 13480, 2), ('AE', 13506, 0), ('L', 13580, 2),('', 13596, 2), #LOYAL
     ('T', 13639, 2), ('UH', 13727, 0), ('', 13738, 0), #TO
     ('K', 13792, 2), ('EY', 13876, 2), ('N', 14017, 2), ('S', 14125, 2), #KANE'S
-    ('T', 14154, 2), ('EH', 14235, 0), ('K', 14380, 0), #TECH
-    ('T', 14154, 2), ('EH', 14235, 0), ('K', 14380, 0), #NOLOGY
+    ('T', 14154, 2), ('EH', 14235, 0), ('K', 14380, 0), #TECH-
+    ('N', 14408, 2), ('AA', 14509, 0), ('L', 14546, 0), ('IH', 14662, 1), ('JH', 14715, 2), ('IH', 14913, 0), #-NOLIHGIH # THE LAST IY MIXES WITH THE AA OF 'OF', WHOSE F IS ABSENT
+    ('', 14963, 0), ('P', 15010, 2), ('IY', 15215, 0), ('S', 15385, 0), #PEACE
+    ('', 15590, 1), #*BREATH*
+    ('W', 15633, 1), ('AH', 15705, 1), ('R', 15723, 2),('EH', 15852, 2), #WUH- RE # IH turned into AH, L IS ABSENT
+    ('', 15869, 0), ('T', 15941, 2), ('ER', 16106, 2), ('N', 16202, 2), #-TURN
+    ('T', 16231, 2), ('UH', 16296, 0),  #TO
+    ('DH', 16329, 2), ('UW', 16403, 1), #THE
+    ('F', 16477, 1), ('AA', 16804, 2),('', 16840, 0), ('D', 16901, 2), #FO-D # L is absent
+    ('', 17286, 1), #*PAUSE*
+    #AND AS FOR HASAN'S PATHETIC GUARD, CRUSH THEM (noticably different emotional tone until 20293)
 ], names=('phoneme', 'timing', 'priority'))
 
 
