@@ -15,14 +15,14 @@ g2p = G2pProgress()
 config_yaml = yaml.load(open('../config.yaml','r'))
 
 filepath = path.join(config_yaml['speech02'], '00-i012.aud')
-battle_control_offline = AudioSegment.from_file(filepath)
+battle_control_offline = AudioSegment.from_file(filepath, "aud")
 
-morshu_wav_fp = path.join(path.dirname(__file__), 'morshu.wav')
-morshu_wav = AudioSegment.from_wav(morshu_wav_fp)
+# morshu_wav_fp = path.join(path.dirname(__file__), 'morshu.wav')
+# morshu_wav = AudioSegment.from_wav(morshu_wav_fp)
 
 # typos in comments are intentional
 
-# Record that contains each recognizable phoneme in the morshu audio file,
+# Record that contains each recognizable phoneme in the .aud audio files,
 # along with the time that phoneme ends in milliseconds, and the priority (how the phoneme sounds compared to others).
 battle_control_offline_rec = np.rec.array([
     ('B', 41, 2), ('AE', 205, 1), ('L', 351, 2), #BA'L
@@ -31,7 +31,7 @@ battle_control_offline_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i064.aud')
-unable_to_comply_building_in_progress = AudioSegment.from_file(filepath)
+unable_to_comply_building_in_progress = AudioSegment.from_file(filepath, "aud")
 
 unable_to_comply_building_in_progress_rec = np.rec.array([
     ('AH', 95, 0), ('N', 198, 2), ('EY', 368, 1), ('B', 466, 1), ('L', 590, 1), #UNABLE
@@ -42,8 +42,10 @@ unable_to_comply_building_in_progress_rec = np.rec.array([
     ('P', 2137, 2), ('R', 2168, 1), ('AA', 2305, 2), ('G', 2424, 1), ('R', 2480, 0), ('EH', 2549, 2), ('S', 2777, 2), #PROGRESS
 ], names=('phoneme', 'timing', 'priority'))
 
+
+
 filepath = path.join(config_yaml['speech02'], '00-i106.aud')
-qauternery_objective_achieved = AudioSegment.from_file(filepath)
+qauternery_objective_achieved = AudioSegment.from_file(filepath, "aud")
 
 qauternery_objective_achieved_rec = np.rec.array([
     ('K', 77, 2), ('W', 144, 2), ('AA', 272, 2), ('T', 371, 1), ('ER', 470, 1),('EH', 535, 2),('R', 569, 1),('IY', 718, 1), #QAUTER-ERY
@@ -52,7 +54,7 @@ qauternery_objective_achieved_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i024.aud')
-low_power = AudioSegment.from_file(filepath)
+low_power = AudioSegment.from_file(filepath, "aud")
 
 low_power_rec = np.rec.array([
     ('L', 100, 2), ('0W', 347, 2),('', 390, 1), #LOW
@@ -60,14 +62,14 @@ low_power_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i062.aud')
-training = AudioSegment.from_file(filepath)
+training = AudioSegment.from_file(filepath, "aud")
 
 training_rec = np.rec.array([
     ('', 11, 1),('T', 104, 2), ('R', 144, 2),('EY', 341, 2),('N', 391, 1),('NG', 613, 2),('', 633, 1), 
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i014.aud')
-building_infiltrated = AudioSegment.from_file(filepath)
+building_infiltrated = AudioSegment.from_file(filepath, "aud")
 
 building_infiltrated_rec = np.rec.array([
     ('', 14, 1),('B', 140, 2), ('IH', 202, 2),('L', 349, 2),('D', 391, 1),('IH', 518, 2),('NG', 701, 2), #BUILDING
@@ -75,19 +77,19 @@ building_infiltrated_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i286.aud')
-you_have_lost = AudioSegment.from_file(filepath)
+you_have_lost = AudioSegment.from_file(filepath, "aud")
 
 you_have_lost_rec = np.rec.array([
     ('Y', 93, 2), ('UW', 375, 2), #YOU
-    ('H', 402, 2), ('AE', 523, 2),('V', 601, 2), #HAVE
+    ('HH', 402, 2), ('AE', 523, 2),('V', 601, 2), #HAVE
     ('L', 676, 2), ('AA', 973, 2), ('S', 1205, 2), ('T', 1345, 2), #LOST
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
-nod02 = AudioSegment.from_file(filepath)
+nod02 = AudioSegment.from_file(filepath, "aud")
 
 nod02_rec = np.rec.array([
-    ('H', 37, 1), ('AH', 153, 0),('S', 279, 2),('AE', 519, 2),('N', 643, 2),('', 648, 0), #HASSAN
+    ('HH', 37, 1), ('AH', 153, 0),('S', 279, 2),('AE', 519, 2),('N', 643, 2),('', 648, 0), #HASSAN
     ('C', 455, 2), ('AA', 737, 2), ('M', 830, 1), ('', 838, 1), ('UH', 946, 1), ('N', 976, 1), ('IH', 1081, 2), ('K', 1139, 2), ('EY', 1320, 2), ('T', 1326, 0), ('S', 1391, 1), #COMMUNICATES # there is a small Y between M and UH
     ('', 1412, 2),('T', 1458, 2), ('UW', 1559, 2), #TO
     ('DH', 1609, 2), ('UW', 1710, 1), #THE
@@ -105,16 +107,16 @@ nod02_rec = np.rec.array([
     ('B', 4779, 0), ('R', 4816, 1), ('AH', 4914, 1), ('DH', 4951, 2), ('ER', 5043, 1), ('HH', 5059, 1), ('UH', 5150, 2), ('D', 5180, 1), #BROTHERHOOD
     ('IH', 5242, 2), ('N', 5324, 1),('', 5336, 1), #IN
     ('K', 5431, 2), ('EY', 5561, 2),('', 5572, 0),('AA', 5736, 2),('S', 5895, 1), #CHAOS # SMALL Y BETWEEN EY AND AA
-    ('', 6254, 1), #*BREATH*
+    ('BREATH', 6254, 1), #*BREATH*
     ('DH', 6325, 1),('UW', 6407, 1), ('AA', 6521, 1),('P', 6553, 1), #THE-OP
     ('P', 6610, 1),('AO', 6723, 1),('T', 6760, 1),('UH', 6951, 2),('N', 7041, 2),('IH', 7065, 2),('IY', 7202, 1), #-PORTUNI-Y
     ('', 1412, 2),('T', 1458, 2), ('UW', 1559, 2), #TO
     ('D', 7304, 1),('IH', 7381, 2),('V', 7450, 2),('AY', 7751, 2),('D', 7800, 2), #DIVIDE
-    ('H', 7829, 1), ('AH', 7900, 1),('S', 8006, 2),('AE', 8119, 2),('N', 8215, 2), #HASSAN
+    ('HH', 7829, 1), ('AH', 7900, 1),('S', 8006, 2),('AE', 8119, 2),('N', 8215, 2), #HASSAN
     ('F', 8282, 1), ('R', 8322, 0), ('M', 8376, 2), #FR-M
-    ('H', 8408, 1), ('I', 8412, 2), ('S', 8556, 2), #HIS
+    ('HH', 8408, 1), ('I', 8412, 2), ('S', 8556, 2), #HIS
     ('F', 8594, 1), ('AH', 8679, 2), ('L', 8790, 1), ('OW', 8853, 2),('ER', 8902, 2), ('S', 8994, 1), #FOLLOWER
-    ('', 9229, 1), #*BREATH*
+    ('BREATH', 9229, 1), #*BREATH*
     ('P', 9261, 1), ('R', 2292, 2),  ('EH', 9342, 2),  ('Z', 9417, 2),  ('EH', 9497, 2), ('N', 9579, 2), ('S', 9678, 2),('IH', 9716, 0), ('T', 9752, 1), #PRESEN-S IT-
     ('S', 9876, 1),('EH', 9919, 1), ('L', 10041, 2), ('F', 10190, 2), #-SELF
     ('', 10670, 1), #*PAUSE*
@@ -123,7 +125,7 @@ nod02_rec = np.rec.array([
     ('', 11314, 1), #*PAUSE*
     ('T', 11370, 2), ('IY', 11466, 2),('V', 11560, 2), ('IY', 11664, 2), #TV
     ('S', 11794, 2),('T', 11820, 1),('EY', 11922, 2),('SH', 12080, 2),('AH', 12092, 2), ('N', 12197, 1), #STATION
-    ('', 12322, 1), #*BREATH*
+    ('BREATH', 12322, 1), #*BREATH*
     ('AE', 12473, 1), ('N', 12510, 1), ('', 12527, 2), #AN- # D after N is not strong enough
     ('DH', 12568, 1), ('OW', 12752, 2), ('Z', 12814, 2), #THOSE
     ('W', 12568, 2), ('AA', 12994, 2), ('N', 13063, 2), ('S', 13190, 2), #ONCE
@@ -133,7 +135,7 @@ nod02_rec = np.rec.array([
     ('T', 14154, 2), ('EH', 14235, 0), ('K', 14380, 0), #TECH-
     ('N', 14408, 2), ('AA', 14509, 0), ('L', 14546, 0), ('IH', 14662, 1), ('JH', 14715, 2), ('IH', 14913, 0), #-NOLIHGIH # THE LAST IY MIXES WITH THE AA OF 'OF', WHOSE F IS ABSENT
     ('', 14963, 0), ('P', 15010, 2), ('IY', 15215, 0), ('S', 15385, 0), #PEACE
-    ('', 15590, 1), #*BREATH*
+    ('BREATH', 15590, 1), #*BREATH*
     ('W', 15633, 1), ('AH', 15705, 1), ('R', 15723, 2),('EH', 15852, 2), #WUH- RE # IH turned into AH, L IS ABSENT
     ('', 15869, 0), ('T', 15941, 2), ('ER', 16106, 2), ('N', 16202, 2), #-TURN
     ('T', 16231, 2), ('UH', 16296, 0),  #TO
@@ -143,21 +145,16 @@ nod02_rec = np.rec.array([
     #AND AS FOR HASAN'S PATHETIC GUARD, CRUSH THEM (noticably different emotional tone until 20293)
 ], names=('phoneme', 'timing', 'priority'))
 
+all_recordings = [battle_control_offline_rec, unable_to_comply_building_in_progress_rec, qauternery_objective_achieved_rec, building_infiltrated_rec, you_have_lost_rec, low_power_rec, training_rec, nod02_rec]
+all_aud = [battle_control_offline, unable_to_comply_building_in_progress, qauternery_objective_achieved, building_infiltrated, you_have_lost, low_power, training, nod02]
 
-
-# substitutes to phonemes that morshu doesn't say (some of these are tentative
+# substitutes to phonemes that have yet to be identified (some of these are tentative
 similar_phonemes = {
-    'AW': ['AE', 'UW'],
-    'DH': ['D'],
-    'EY': ['EH', 'IY'],
-    'JH': ['CH'],
-    'SH': ['CH'],
-    'TH': ['D'],
     'ZH': ['CH'],
 }
 
 
-class Morshu:
+class TibSunCabal:
     def __init__(self):
         self.input_str = ""
         self.input_phonemes = []
@@ -176,15 +173,15 @@ class Morshu:
         self.out_audio = AudioSegment.empty()
         """The audio segment generated by load_audio()"""
 
-        self.audio_segment_timings = np.rec.array((0, 0), names=('output', 'morshu'))
+        self.audio_segment_timings = np.rec.array((0, 0), names=('output_time', 'source_clip_index', 'source_time'))
         """
-        Record of segment timings in the output audio. Each entry represents the time that a new morshu segment begins.
+        Record of segment timings in the output audio. Each entry represents the time that a new source segment begins.
         
-        The first index in each entry (named 'output') is the time in milliseconds when a new morshu segment begins.
-        The second index (named 'morshu') is the time when the segment starts in the morshu audio.
+        The first index in each entry (named 'output_time') is the time in milliseconds when a new source segment begins.
+        The second index (named 'source_time') is the time when the segment starts in the source audio.
         
-        Example: If this record contains the entry (2000, 1895), that means at 2 seconds into the output audio, the
-        morshu segment that begins at 1.895 seconds will be played (when morshu says 'B' in 'bombs').
+        Example: If this record contains the entry (2000, 1, 590), that means at 2 seconds into the output audio, the
+        segment of 'unable_to_comply' that begins at 590 seconds will be played (when CABAL says 'T' in 'to').
         """
 
         self.canceled = False
@@ -226,13 +223,13 @@ class Morshu:
         progress_total = len(phonemes)
 
         # output audio
-        output = AudioSegment.empty().set_frame_rate(morshu_wav.frame_rate)
+        output = AudioSegment.empty().set_frame_rate(all_aud[0].frame_rate) #rate is 22050Hz
 
-        # milliseconds marking each time a new morshu audio segment is used
+        # milliseconds marking each time a new audio segment is used
         audio_out_millis = []
 
-        # milliseconds marking the beginning of each segment in from the morshu audio
-        audio_morshu_millis = []
+        # milliseconds marking the beginning of each segment in from the source audio
+        audio_source_millis = []
 
         # segment of multiple phonemes in one word (phonemes between pauses)
         phoneme_segment = []
@@ -247,54 +244,55 @@ class Morshu:
             if p in g2p.phonemes:
                 phoneme_segment.append(p)
             if p not in g2p.phonemes or len(phonemes) == 0:
-                output = self.append_best_morshu_phoneme_segment(output, phoneme_segment, audio_out_millis,
-                                                                 audio_morshu_millis)
+                output = self.append_best_phoneme_segment(output, phoneme_segment, audio_out_millis,
+                                                                 audio_source_millis)
                 phoneme_segment = []
             if p == ' ':
                 output = self.append_audio_segment(output, AudioSegment.silent(self.space_length), -1, audio_out_millis,
-                                                   audio_morshu_millis)
+                                                   audio_source_millis)
             elif p in self.stop_chars:
                 output = self.append_audio_segment(output, AudioSegment.silent(self.stop_length), -1, audio_out_millis,
-                                                   audio_morshu_millis)
+                                                   audio_source_millis)
 
         if len(output) == 0:
             warnings.warn('returned audio segment is empty', UserWarning)
-            self.audio_segment_timings = np.rec.array((0, 0), names=('output', 'morshu'))
+            self.audio_segment_timings = np.rec.array((0, 0), names=('output_time', 'source_clip_index', 'source_time'))
         else:
-            self.audio_segment_timings = np.rec.array(tuple(zip(audio_out_millis, audio_morshu_millis)),
-                                                      names=('output', 'morshu'))
+            self.audio_segment_timings = np.rec.array(tuple(zip(audio_out_millis, audio_source_millis)),
+                                                      names=('output_time', 'source_clip_index', 'source_time'))
 
         progress_callback(1, progress_total, progress_total)
 
         self.out_audio = output
         return output
 
-    def get_frame_idx_from_millis(self, millis: int) -> int:
-        """
-        Get the morshu frame from the given time in milliseconds
-        :param millis: Time in the output audio in milliseconds.
-        :return: The morshu frame index that occurs at that time in the generated audio. The morshu video is 10 fps.
-        """
-        if len(self.out_audio) == 0:
-            return 0
+    # Note CABAL does not have an easily available video source, this function will have no use
+    # def get_frame_idx_from_millis(self, millis: int) -> int:
+    #     """
+    #     Get the morshu frame from the given time in milliseconds
+    #     :param millis: Time in the output audio in milliseconds.
+    #     :return: The morshu frame index that occurs at that time in the generated audio. The morshu video is 10 fps.
+    #     """
+    #     if len(self.out_audio) == 0:
+    #         return 0
 
-        millis = int(millis)
-        idx = np.argmin(self.audio_segment_timings['output'] <= millis) - 1
+    #     millis = int(millis)
+    #     idx = np.argmin(self.audio_segment_timings['output'] <= millis) - 1
 
-        output_segment_start, morshu_segment_start = self.audio_segment_timings[idx]
-        if morshu_segment_start == -1:
-            return -1
+    #     output_segment_start, morshu_segment_start = self.audio_segment_timings[idx]
+    #     if morshu_segment_start == -1:
+    #         return -1
 
-        morshu_frame = (morshu_segment_start + (millis - output_segment_start)) // 100  # 10 fps, 1 frame per 100 millis
-        return morshu_frame
+    #     morshu_frame = (morshu_segment_start + (millis - output_segment_start)) // 100  # 10 fps, 1 frame per 100 millis
+    #     return morshu_frame
 
     @staticmethod
     def substitute_similar_phonemes(phonemes: List[str]):
         """
         Parse through a list of phonemes and replace them if necessary.
 
-        The replacement phonemes are stored in the global similar_phonemes dictionary. These are phonemes that Morshu
-        doesn't say in his two lines of dialog. These phonemes may sound slightly different than expected, and may be
+        The replacement phonemes are stored in the global similar_phonemes dictionary. These are phonemes that have
+        yet to be identified in CABAL dialog. These phonemes may sound slightly different than expected, and may be
         updated to be more accurate later.
 
         The emphasis number at the end of some vowel phonemes are removed to simplify things.
@@ -315,8 +313,8 @@ class Morshu:
         return phonemes
 
     @staticmethod
-    def append_audio_segment(audio_out: AudioSegment, audio_segment: AudioSegment, morshu_millis_start: int,
-                             audio_out_millis: List[int], audio_morshu_millis: List[int]) -> AudioSegment:
+    def append_audio_segment(audio_out: AudioSegment, audio_segment: AudioSegment, source_millis_start: int,
+                             audio_out_millis: List[int], audio_source_millis: List[int]) -> AudioSegment:
         """
         Helper function to append one audio segment to another and update several variables at the same time.
 
@@ -324,47 +322,45 @@ class Morshu:
 
         :param audio_segment: The audio segment that will be appended.
 
-        :param morshu_millis_start: The time in milliseconds that the audio segment begins in the morshu audio. Use -1
-        if this audio doesn't appear in the Morshu audio (like if it's silence).
+        :param source_millis_start: The time in milliseconds that the audio segment begins in the source audio. Use -1
+        if this audio doesn't appear in the source audio (like if it's silence).
 
         :param audio_out_millis: A list of milliseconds representing when new segments begin in the output audio.
 
-        :param audio_morshu_millis: A list of milliseconds representing when the segment begins in the morshu audio.
+        :param audio_source_millis: A list of milliseconds representing when the segment begins in the morshu audio.
 
         :return: audio_out with audio_segment appended.
         """
         audio_out_millis.append(len(audio_out))
-        audio_morshu_millis.append(morshu_millis_start)
+        audio_source_millis.append(source_millis_start)
         audio_out += audio_segment
         return audio_out
 
     @staticmethod
     def get_phoneme_sequence_occurrences(phonemes: List[str]) -> List[Tuple[int, int]]:
         """
-        Get all occurrences of a given phoneme segment in the morshu audio.
-        :return: List of tuples containing (start_millis, end_millis)
+        Get all occurrences of a given phoneme segment in the source audio.
+        :return: List of tuples containing (source_index, start_millis, end_millis)
         """
         occurrences = []
-        for i in range(len(morshu_rec) - len(phonemes)):
-            if (morshu_rec['phoneme'][i:i + len(phonemes)] == phonemes).all():
-                start = morshu_rec['timing'][i - 1]
-                end = morshu_rec['timing'][i + len(phonemes) - 1]
-                occurrences.append((start, end))
+        for chosen_rec_index in len(all_recordings):
+            chosen_rec = all_recordings[chosen_rec_index]
+            for i in range(len(chosen_rec) - len(phonemes)):
+                if (chosen_rec['phoneme'][i:i + len(phonemes)] == phonemes).all():
+                    start = chosen_rec['timing'][i - 1]
+                    end = chosen_rec['timing'][i + len(phonemes) - 1]
+                    occurrences.append((chosen_rec_index, start, end))
         return occurrences
 
-    def get_best_morshu_single_phoneme(self, phoneme: str, preceding: str = "", succeeding: str = "") \
+    def get_best_single_phoneme(self, phoneme: str, preceding: str = "", succeeding: str = "") \
             -> Tuple[AudioSegment, int]:
         """
-        Find the best morshu audio segment of the given phoneme.
+        Find the best audio segment of the given phoneme.
 
-        This compares the given surrounding phonemes with the phonemes in the morshu audio to determine the best one.
+        This compares the given surrounding phonemes with the phonemes in the each audio to determine the best one.
         Segments that match the same preceding or succeeding phoneme will be given the highest priority, and moderate
         priority is given if the phonemes both contain vowels. If two segments have the same priority, a random one is
         chosen.
-
-        For example, if we're looking for the phoneme 'K' with nothing before it and 'IH' after it, the 'K' in either
-        "can't" or "come" will be chosen instead of "credit", because the preceding phoneme matches (nothing) and the
-        succeeding phoneme contains a vowel, so it's close enough.
 
         :param phoneme: The phoneme to search for.
 
@@ -372,55 +368,62 @@ class Morshu:
 
         :param succeeding: The phoneme that comes after the searching phoneme.
 
-        :return: A tuple containing the audio segment and the time that the segment starts in the morshu audio
+        :return: A tuple containing the audio segment and the time that the segment starts in the chosen audio
         """
         # list of phoneme indices of the highest priority
-        best_indices = []
-        phoneme_indices = np.where(morshu_rec['phoneme'] == phoneme)[0]
-        if len(phoneme_indices) == 0:
-            return AudioSegment.empty(), 0
+        best_samples = []
+        for chosen_rec_index in len(all_recordings):
+            chosen_rec = all_recordings[chosen_rec_index]
+            phoneme_indices = np.where(chosen_rec['phoneme'] == phoneme)[0]
+            if len(phoneme_indices) == 0:
+                return AudioSegment.empty(), 0
 
-        highest_priority = 0
-        for i in phoneme_indices:
-            # priorities for preceding and succeeding phonemes:
-            # exact match: 10
-            # compared phonemes both contain vowels: 5
-            # no match: 0
-            # starting priority is obtained from morshu_rec
-            morshu_preceding = morshu_rec['phoneme'][i - 1]
+            highest_priority = 0
+            for i in phoneme_indices:
+                # priorities for preceding and succeeding phonemes:
+                # exact match: 10
+                # compared phonemes both contain vowels: 5
+                # no match: 0
+                # starting priority is obtained from chosen_rec
+                source_preceding = chosen_rec['phoneme'][i - 1]
 
-            priority = morshu_rec['priority'][i] if self.use_phoneme_priority else 0
-            if morshu_preceding == preceding:
-                priority += 10
-            # check both phonemes for any vowel
-            elif any(c in morshu_preceding for c in "AEIOU") and any(c in preceding for c in "AEIOU"):
-                priority += 5
+                priority = chosen_rec['priority'][i] if self.use_phoneme_priority else 0
+                if source_preceding == preceding:
+                    priority += 10
+                # check both phonemes for any vowel
+                elif any(c in source_preceding for c in "AEIOU") and any(c in preceding for c in "AEIOU"):
+                    priority += 5
 
-            # check succeeding phonemes
-            morshu_succeeding = morshu_rec['phoneme'][i + 1]
-            if morshu_succeeding == succeeding:
-                priority += 10
-            # check both phonemes for any vowel
-            elif any(c in morshu_succeeding for c in "AEIOU") and any(c in succeeding for c in "AEIOU"):
-                priority += 1
+                # check succeeding phonemes
+                source_succeeding = chosen_rec['phoneme'][i + 1] #does this need protection from going out of bounds? TODO: check how empty phonemes are handled 
+                if source_succeeding == succeeding:
+                    priority += 10
+                # check both phonemes for any vowel
+                elif any(c in source_succeeding for c in "AEIOU") and any(c in succeeding for c in "AEIOU"):
+                    priority += 1
 
-            if priority < highest_priority:
-                continue
-            if priority > highest_priority:
-                highest_priority = priority
-                best_indices = []
-            best_indices.append(i)
+                # TODO CABAL has more dialog than Morshu, so we could afford to vary which words are used to avoid fatigue
+                if priority < highest_priority:
+                    continue
+                if priority > highest_priority:
+                    highest_priority = priority
+                    best_samples = []
+                best_samples.append((chosen_rec_index, i))
 
-        index = random.choice(best_indices)
-        segment = morshu_wav[morshu_rec['timing'][index - 1]: morshu_rec['timing'][index]]
-        return segment, morshu_rec['timing'][index - 1]
+        sample = random.choice(best_samples)
+        source_rec = sample[0]
+        phoneme_index = sample[1]
+        chosen_rec = all_recordings[source_rec]
+        chosen_aud = all_aud[source_rec]
+        segment = chosen_aud[chosen_rec['timing'][phoneme_index - 1]: chosen_rec['timing'][phoneme_index]]
+        return segment, chosen_rec['timing'][phoneme_index - 1]
 
-    def append_best_morshu_phoneme_segment(self, output: AudioSegment, phonemes: List[str],
+    def append_best_phoneme_segment(self, output: AudioSegment, phonemes: List[str],
                                            audio_out_millis: List[int] = None,
-                                           audio_morshu_millis: List[int] = None) -> AudioSegment:
+                                           audio_source_millis: List[int] = None) -> AudioSegment:
         """
-        Search for a phoneme segment that appears in the morshu audio, and append it to the given audio output. If a
-        segment more than 1 length can't be found, get_best_morshu_single_phoneme will be used to find the best one.
+        Search for a phoneme segment that appears in the source audio, and append it to the given audio output. If a
+        segment more than 1 length can't be found, get_best_single_phoneme will be used to find the best one.
 
         :param output: The audio to append the best segment to.
 
@@ -428,14 +431,14 @@ class Morshu:
 
         :param audio_out_millis: A list of milliseconds representing when new segments begin in the output audio.
 
-        :param audio_morshu_millis: A list of milliseconds representing when the segment begins in the morshu audio.
+        :param audio_source_millis: A list of milliseconds representing when the segment begins in the source audio.
 
         :return: The audio segment with the new segment appended to it.
         """
-        phonemes = Morshu.substitute_similar_phonemes(phonemes)
+        phonemes = TibSunCabal.substitute_similar_phonemes(phonemes)
         if len(phonemes) == 1:
-            segment, start = self.get_best_morshu_single_phoneme(phonemes[0])
-            return Morshu.append_audio_segment(output, segment, start, audio_out_millis, audio_morshu_millis)
+            segment, start = self.get_best_single_phoneme(phonemes[0])
+            return TibSunCabal.append_audio_segment(output, segment, start, audio_out_millis, audio_source_millis)
 
         # preceding and succeeding phonemes are used if we need to search for a single phoneme
         preceding = ""
@@ -447,11 +450,11 @@ class Morshu:
 
             start = 0
             while sequence_length <= len(phonemes):
-                occurrences = Morshu.get_phoneme_sequence_occurrences(phonemes[:sequence_length])
+                occurrences = TibSunCabal.get_phoneme_sequence_occurrences(phonemes[:sequence_length])
                 if len(occurrences) == 0:
                     break
-                start, end = random.choice(occurrences)
-                segment = morshu_wav[start:end]
+                chosen_rec_index, start, end = random.choice(occurrences)
+                segment = all_aud[chosen_rec_index][start:end]
                 sequence_length += 1
             sequence_length -= 1
 
@@ -461,9 +464,9 @@ class Morshu:
                     succeeding = phonemes[sequence_length + 1]
                 else:
                     succeeding = ""
-                segment, start = self.get_best_morshu_single_phoneme(phonemes[0], preceding, succeeding)
+                segment, start = self.get_best_single_phoneme(phonemes[0], preceding, succeeding)
 
-            output = Morshu.append_audio_segment(output, segment, start, audio_out_millis, audio_morshu_millis)
+            output = TibSunCabal.append_audio_segment(output, segment, start, audio_out_millis, audio_source_millis)
 
             preceding = phonemes[sequence_length - 1]
             del phonemes[:sequence_length]
