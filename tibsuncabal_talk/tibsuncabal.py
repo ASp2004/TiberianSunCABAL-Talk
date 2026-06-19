@@ -17,7 +17,7 @@ path_dirname_config = path.join(path_dirname_config,'config.yaml')
 config_yaml = yaml.load(open(path_dirname_config,'r'))
 
 filepath = path.join(config_yaml['speech02'], '00-i012.aud')
-battle_control_offline = AudioSegment.from_file(filepath, "aud")
+battle_control_offline = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 # morshu_wav_fp = path.join(path.dirname(__file__), 'morshu.wav')
 # morshu_wav = AudioSegment.from_wav(morshu_wav_fp)
@@ -33,7 +33,7 @@ battle_control_offline_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i064.aud')
-unable_to_comply_building_in_progress = AudioSegment.from_file(filepath, "aud")
+unable_to_comply_building_in_progress = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 unable_to_comply_building_in_progress_rec = np.rec.array([
     ('AH', 95, 0), ('N', 198, 2), ('EY', 368, 1), ('B', 466, 1), ('L', 590, 1), #UNABLE
@@ -47,7 +47,7 @@ unable_to_comply_building_in_progress_rec = np.rec.array([
 
 
 filepath = path.join(config_yaml['speech02'], '00-i106.aud')
-qauternery_objective_achieved = AudioSegment.from_file(filepath, "aud")
+qauternery_objective_achieved = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 qauternery_objective_achieved_rec = np.rec.array([
     ('K', 77, 2), ('W', 144, 2), ('AA', 272, 2), ('T', 371, 1), ('ER', 470, 1),('EH', 535, 2),('R', 569, 1),('IY', 718, 1), #QAUTER-ERY
@@ -56,7 +56,7 @@ qauternery_objective_achieved_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i024.aud')
-low_power = AudioSegment.from_file(filepath, "aud")
+low_power = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 low_power_rec = np.rec.array([
     ('L', 100, 2), ('0W', 347, 2),('', 390, 1), #LOW
@@ -64,14 +64,14 @@ low_power_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i062.aud')
-training = AudioSegment.from_file(filepath, "aud")
+training = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 training_rec = np.rec.array([
     ('', 11, 1),('T', 104, 2), ('R', 144, 2),('EY', 341, 2),('N', 391, 1),('NG', 613, 2),('', 633, 1), 
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i014.aud')
-building_infiltrated = AudioSegment.from_file(filepath, "aud")
+building_infiltrated = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 building_infiltrated_rec = np.rec.array([
     ('', 14, 1),('B', 140, 2), ('IH', 202, 2),('L', 349, 2),('D', 391, 1),('IH', 518, 2),('NG', 701, 2), #BUILDING
@@ -79,7 +79,7 @@ building_infiltrated_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i286.aud')
-you_have_lost = AudioSegment.from_file(filepath, "aud")
+you_have_lost = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 you_have_lost_rec = np.rec.array([
     ('Y', 93, 2), ('UW', 375, 2), #YOU
@@ -88,7 +88,7 @@ you_have_lost_rec = np.rec.array([
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
-nod02 = AudioSegment.from_file(filepath, "aud")
+nod02 = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 nod02_rec = np.rec.array([
     ('HH', 37, 1), ('AH', 153, 0),('S', 279, 2),('AE', 519, 2),('N', 643, 2),('', 648, 0), #HASSAN
@@ -345,7 +345,7 @@ class TibSunCabal:
         :return: List of tuples containing (source_index, start_millis, end_millis)
         """
         occurrences = []
-        for chosen_rec_index in len(all_recordings):
+        for chosen_rec_index in range(len(all_recordings)):
             chosen_rec = all_recordings[chosen_rec_index]
             for i in range(len(chosen_rec) - len(phonemes)):
                 if (chosen_rec['phoneme'][i:i + len(phonemes)] == phonemes).all():
@@ -374,7 +374,7 @@ class TibSunCabal:
         """
         # list of phoneme indices of the highest priority
         best_samples = []
-        for chosen_rec_index in len(all_recordings):
+        for chosen_rec_index in range(len(all_recordings)):
             chosen_rec = all_recordings[chosen_rec_index]
             phoneme_indices = np.where(chosen_rec['phoneme'] == phoneme)[0]
             if len(phoneme_indices) == 0:
