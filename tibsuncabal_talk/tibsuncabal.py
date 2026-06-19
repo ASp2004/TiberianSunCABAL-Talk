@@ -6,13 +6,15 @@ import warnings
 from pydub import AudioSegment
 from typing import List, Tuple, Callable, Literal
 
-from morshutalk.g2p import G2pProgress
+from tibsuncabal_talk.g2p import G2pProgress
 
 import yaml
 
 g2p = G2pProgress()
 
-config_yaml = yaml.load(open('../config.yaml','r'))
+path_dirname_config = path.normpath(path.join(path.dirname(__file__), '..'))
+path_dirname_config = path.join(path_dirname_config,'config.yaml')
+config_yaml = yaml.load(open(path_dirname_config,'r'))
 
 filepath = path.join(config_yaml['speech02'], '00-i012.aud')
 battle_control_offline = AudioSegment.from_file(filepath, "aud")

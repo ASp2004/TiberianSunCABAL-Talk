@@ -1,14 +1,14 @@
 from sounddevice import play
 
-from morshutalk.morshu import Morshu
-from morshutalk.cli_progress import CliProgress
+from tibsuncabal_talk.tibsuncabal import TibSunCabal
+from tibsuncabal_talk.cli_progress import CliProgress
 
 
 def main():
-    morshu = Morshu()
+    cabal = TibSunCabal()
     progress = CliProgress()
 
-    print("Type the text you would like Morshu to speak")
+    print("Type the text you would like CABAL to speak")
     print("Leave blank and press enter to exit")
 
     try:
@@ -17,7 +17,7 @@ def main():
             if len(text) == 0:
                 exit(0)
             else:
-                audio = morshu.load_text(text, progress.update_progress)
+                audio = cabal.load_text(text, progress.update_progress)
                 play(audio.get_array_of_samples(), audio.frame_rate)
 
     except KeyboardInterrupt:
