@@ -27,9 +27,9 @@ battle_control_offline = AudioSegment.from_file(filepath, format="wsaud",codec="
 # Record that contains each recognizable phoneme in the .aud audio files,
 # along with the time that phoneme ends in milliseconds, and the priority (how the phoneme sounds compared to others).
 battle_control_offline_rec = np.rec.array([
-    ('B', 41, 2), ('AE', 205, 1), ('L', 351, 2), #BA'L
-    ('K', 393, 2), ('AA', 470, 0), ('CH', 596, 1), ('R', 664, 1), ('AO', 840, 1), ('L', 959, 0), #COCHROL , AA should be AX if it were in cmu phoneme set
-    ('O', 1150, 2), ('F', 1281, 1), ('L', 1327, 1), ('N', 1758, 1), #OFFLINE
+    ('B', 35, 2), ('AE', 173, 1), ('T', 210, 0), ('L', 366, 2), #BATL
+    ('K', 381, 2), ('AH', 412, 0), ('N', 503, 2), ('CH', 596, 1), ('R', 635, 1), ('AO', 855, 1), ('', 959, 0), #CUHNCHRO- # LAST L DOES NOT SOUND GOOD AS ITS OWN PHONEME 
+    ('O', 1134, 2), ('F', 1249, 1), ('L', 1309, 1),('AY', 1669, 1), ('N', 1766, 1),('', 1771, 1), #OFFLINE
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i064.aud')
@@ -41,7 +41,7 @@ unable_to_comply_building_in_progress_rec = np.rec.array([
     ('K', 756, 1), ('AA', 841, 0), ('M', 920, 0), ('P', 1026, 1), ('L', 1047, 0), ('AY', 1455, 2), #COMPLY
     ('B', 1485, 1), ('IH', 1538, 2), ('L', 1688, 0), ('D', 1800, 0), ('IH', 1839, 0), ('N', 1855, 0), #BUILDING
     ('IH', 1904, 0), ('N', 2068, 0), #IN
-    ('P', 2137, 2), ('R', 2168, 1), ('AA', 2305, 2), ('G', 2424, 1), ('R', 2480, 0), ('EH', 2549, 2), ('S', 2777, 2), #PROGRESS
+    ('P', 2137, 2), ('R', 2168, 1), ('AA', 2305, 2), ('G', 2424, 1), ('R', 2480, 0), ('EH', 2549, 2), ('S', 2777, 2),('', 2796, 1), #PROGRESS
 ], names=('phoneme', 'timing', 'priority'))
 
 
@@ -50,9 +50,9 @@ filepath = path.join(config_yaml['speech02'], '00-i106.aud')
 qauternery_objective_achieved = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 qauternery_objective_achieved_rec = np.rec.array([
-    ('K', 77, 2), ('W', 144, 2), ('AA', 272, 2), ('T', 371, 1), ('ER', 470, 1),('EH', 535, 2),('R', 569, 1),('IY', 718, 1), #QAUTER-ERY
-    ('AA', 778, 0), ('', 795, 0), ('J', 871, 2), ('EH', 1081, 1), ('K', 1105, 1),('T', 1140, 2),('IH', 1204, 1),('V', 1300, 2), #OBJECTIVE
-    ('AE', 1340, 1), ('CH', 1440, 2), ('IY', 1642, 2), ('V', 1872, 1), ('T', 1948, 1), #ACHIEVED
+    ('K', 61, 2), ('W', 119, 2), ('AA', 244, 2), ('T', 268, 1), ('N', 353, 1),('EH', 506, 2),('R', 544, 1),('IY', 667, 1), #QAUTER-ERY
+    ('AA', 689, 0), ('B', 795, 0), ('J', 866, 2), ('EH', 1040, 1),('', 1081, 1), ('K', 1105, 1),('T', 1140, 2),('IH', 1188, 1),('V', 1226, 2), #OBJECTIVE
+    ('AH', 1306, 1), ('CH', 1436, 2), ('IY', 1766, 2), ('V', 1837, 1),('', 1873, 1), ('T', 1929, 1),('', 1947, 1), #UHCHIEVED
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i024.aud')
@@ -60,7 +60,7 @@ low_power = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws"
 
 low_power_rec = np.rec.array([
     ('L', 100, 2), ('0W', 347, 2),('', 390, 1), #LOW
-    ('P', 455, 2), ('AW', 644, 2), ('W', 704, 1), ('ER', 843, 1), #POWER
+    ('P', 455, 2), ('AW', 644, 2), ('W', 704, 1), ('ER', 843, 1),('', 846, 1), #POWER
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i062.aud')
@@ -75,16 +75,16 @@ building_infiltrated = AudioSegment.from_file(filepath, format="wsaud",codec="ad
 
 building_infiltrated_rec = np.rec.array([
     ('', 14, 1),('B', 140, 2), ('IH', 202, 2),('L', 349, 2),('D', 391, 1),('IH', 518, 2),('NG', 701, 2), #BUILDING
-    ('IH', 768, 1),('N', 897, 2), ('F', 988, 2),('AH', 1047, 2),('L', 1133, 1),('CH', 1227, 2),('R', 1242, 0),('EY', 1325, 2),('T', 1403, 1),('ED', 1467, 1),('T', 1597, 1), #INFILTRATED
+    ('IH', 768, 1),('N', 897, 2), ('F', 988, 2),('AH', 1047, 2),('L', 1133, 1),('CH', 1227, 2),('R', 1242, 0),('EY', 1325, 2),('T', 1403, 1),('ED', 1467, 1),('T', 1597, 1),('', 1622, 1), #INFILTRATED
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i286.aud')
 you_have_lost = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 you_have_lost_rec = np.rec.array([
-    ('Y', 93, 2), ('UW', 375, 2), #YOU
+    ('Y', 93, 2), ('UW', 344, 2), #YOU
     ('HH', 402, 2), ('AE', 523, 2),('V', 601, 2), #HAVE
-    ('L', 676, 2), ('AA', 973, 2), ('S', 1205, 2), ('T', 1345, 2), #LOST
+    ('L', 676, 2), ('AA', 973, 2), ('S', 1205, 2), ('T', 1345, 2),('', 1403, 1), #LOST
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
@@ -456,6 +456,7 @@ class TibSunCabal:
                 if len(occurrences) == 0:
                     break
                 chosen_rec_index, start, end = random.choice(occurrences)
+                
                 segment = all_aud[chosen_rec_index][start:end]
                 sequence_length += 1
             sequence_length -= 1
