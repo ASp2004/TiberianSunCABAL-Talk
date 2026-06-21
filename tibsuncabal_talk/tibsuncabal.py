@@ -6,6 +6,8 @@ import warnings
 from pydub import AudioSegment
 from typing import List, Tuple, Callable, Literal
 
+from sounddevice import play #TODO remove testing element
+
 from tibsuncabal_talk.g2p import G2pProgress
 
 import yaml
@@ -27,9 +29,9 @@ battle_control_offline = AudioSegment.from_file(filepath, format="wsaud",codec="
 # Record that contains each recognizable phoneme in the .aud audio files,
 # along with the time that phoneme ends in milliseconds, and the priority (how the phoneme sounds compared to others).
 battle_control_offline_rec = np.rec.array([
-    ('B', 35, 2), ('AE', 173, 1), ('T', 210, 0), ('L', 366, 2), #BATL
+    ('B', 35, 2), ('AE', 173, 1), ('', 210, 0), ('L', 366, 2), #BA-L
     ('K', 381, 2), ('AH', 412, 0), ('N', 503, 2), ('CH', 596, 1), ('R', 635, 1), ('AO', 855, 1), ('', 959, 0), #CUHNCHRO- # LAST L DOES NOT SOUND GOOD AS ITS OWN PHONEME 
-    ('O', 1134, 2), ('F', 1249, 1), ('L', 1309, 1),('AY', 1669, 1), ('N', 1766, 1),('', 1771, 1), #OFFLINE
+    ('O', 1134, 2), ('F', 1249, 1), ('L', 1309, 1),('AY', 1669, 1), ('', 1766, 1),('', 1771, 1), #OFFLI-
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i064.aud')
@@ -38,10 +40,10 @@ unable_to_comply_building_in_progress = AudioSegment.from_file(filepath, format=
 unable_to_comply_building_in_progress_rec = np.rec.array([
     ('AH', 95, 0), ('N', 198, 2), ('EY', 368, 1), ('B', 466, 1), ('L', 590, 1), #UNABLE
     ('T', 627, 2), ('UW', 723, 1), #TO
-    ('K', 756, 1), ('AA', 841, 0), ('M', 920, 0), ('P', 1026, 1), ('L', 1047, 0), ('AY', 1455, 2), #COMPLY
-    ('B', 1485, 1), ('IH', 1538, 2), ('L', 1688, 0), ('D', 1800, 0), ('IH', 1839, 0), ('N', 1855, 0), #BUILDING
-    ('IH', 1904, 0), ('N', 2068, 0), #IN
-    ('P', 2137, 2), ('R', 2168, 1), ('AA', 2305, 2), ('G', 2424, 1), ('R', 2480, 0), ('EH', 2549, 2), ('S', 2777, 2),('', 2796, 1), #PROGRESS
+    ('K', 756, 1), ('AA', 841, 0), ('', 920, 0), ('P', 1026, 1), ('', 1047, 0), ('AY', 1455, 2), #CO-P-Y
+    ('B', 1485, 1), ('IH', 1538, 2), ('', 1688, 0), ('', 1800, 0), ('IH', 1839, 0), ('', 1855, 0), #BUI-----
+    ('IH', 1904, 0), ('', 2068, 0), #IN
+    ('P', 2137, 2), ('R', 2168, 1), ('AA', 2305, 2), ('G', 2424, 1), ('', 2480, 0), ('EH', 2549, 2), ('S', 2777, 2),('', 2796, 1), #PROG-ESS
 ], names=('phoneme', 'timing', 'priority'))
 
 
@@ -50,8 +52,8 @@ filepath = path.join(config_yaml['speech02'], '00-i106.aud')
 qauternery_objective_achieved = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 qauternery_objective_achieved_rec = np.rec.array([
-    ('K', 61, 2), ('W', 119, 2), ('AA', 244, 2), ('T', 268, 1), ('N', 353, 1),('EH', 506, 2),('R', 544, 1),('IY', 667, 1), #QAUTER-ERY
-    ('AA', 689, 0), ('B', 795, 0), ('J', 866, 2), ('EH', 1040, 1),('', 1081, 1), ('K', 1105, 1),('T', 1140, 2),('IH', 1188, 1),('V', 1226, 2), #OBJECTIVE
+    ('K', 61, 2), ('W', 119, 2), ('AA', 244, 2), ('T', 268, 1), ('', 353, 1),('EH', 506, 2),('R', 544, 1),('IY', 667, 1), #QAUTER-ERY
+    ('AA', 689, 0), ('', 795, 0), ('JH', 866, 2), ('EH', 1040, 1),('', 1081, 1), ('K', 1105, 1),('T', 1140, 2),('IH', 1188, 1),('V', 1226, 2), #OBJECTIVE
     ('AH', 1306, 1), ('CH', 1436, 2), ('IY', 1766, 2), ('V', 1837, 1),('', 1873, 1), ('T', 1929, 1),('', 1947, 1), #UHCHIEVED
 ], names=('phoneme', 'timing', 'priority'))
 
@@ -67,7 +69,7 @@ filepath = path.join(config_yaml['speech02'], '00-i062.aud')
 training = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
 training_rec = np.rec.array([
-    ('', 11, 1),('T', 104, 2), ('R', 144, 2),('EY', 341, 2),('N', 391, 1),('NG', 613, 2),('', 633, 1), 
+    ('', 11, 1),('T', 104, 2), ('R', 144, 2),('EY', 341, 2),('', 391, 1),('NG', 613, 2),('', 633, 1), 
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i014.aud')
@@ -75,7 +77,7 @@ building_infiltrated = AudioSegment.from_file(filepath, format="wsaud",codec="ad
 
 building_infiltrated_rec = np.rec.array([
     ('', 14, 1),('B', 140, 2), ('IH', 202, 2),('L', 349, 2),('D', 391, 1),('IH', 518, 2),('NG', 701, 2), #BUILDING
-    ('IH', 768, 1),('N', 897, 2), ('F', 988, 2),('AH', 1047, 2),('L', 1133, 1),('CH', 1227, 2),('R', 1242, 0),('EY', 1325, 2),('T', 1403, 1),('ED', 1467, 1),('T', 1597, 1),('', 1622, 1), #INFILTRATED
+    ('IH', 768, 1),('N', 897, 2), ('F', 988, 2),('AH', 1047, 2),('L', 1133, 1),('CH', 1227, 2),('', 1242, 0),('EY', 1325, 2),('T', 1403, 1),('ED', 1467, 1),('T', 1597, 1),('', 1622, 1), #INFILT-ATED
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['speech02'], '00-i286.aud')
@@ -85,6 +87,40 @@ you_have_lost_rec = np.rec.array([
     ('Y', 93, 2), ('UW', 344, 2), #YOU
     ('HH', 402, 2), ('AE', 523, 2),('V', 601, 2), #HAVE
     ('L', 676, 2), ('AA', 973, 2), ('S', 1205, 2), ('T', 1345, 2),('', 1403, 1), #LOST
+], names=('phoneme', 'timing', 'priority'))
+
+filepath = path.join(config_yaml['speech02'], '01-n024.aud')
+destroy_the_remainder_of_hassans_guard = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+
+destroy_the_remainder_of_hassans_guard_rec = np.rec.array([
+    ('D', 38, 2), ('EH', 95, 2),('S', 308, 2),('T', 346, 2),('R', 389, 2),('OY', 678, 2), #YOU
+    ('DH', 689, 2), ('AH', 791, 2),('R', 801, 2),('AH', 886, 2),('M', 941, 2),('EY', 1060, 2),('N', 1179, 2), #THE REMAIN-
+    ('D', 1197, 2), ('AH', 1365, 2),#DER
+    ('AH', 1476, 2),  #O- # THE F SOUND ISN'T CLEAR OR USEFUL
+    ('H', 1556, 2), ('AH', 1637, 2), ('S', 1755, 2), ('', 1904, 2), ('N', 1967, 2), ('Z', 2100, 2),#HASSANS # SECOND A DOES NOT FIT NEATLY INTO CMU
+    ('G', 2144, 2), ('', 2481, 2), ('', 2552, 2), #G-RD # sound between g and d does not fit neatly into cmu, D is too quiet to be useful
+    ('', 2602, 1), 
+], names=('phoneme', 'timing', 'priority'))
+
+filepath = path.join(config_yaml['speech02'], '01-n024.aud')
+tunnel_secure_mcv_en_route = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+
+tunnel_secure_mcv_en_route_rec = np.rec.array([
+    ('T', 33, 2), ('AH', 151, 2),('N', 159, 2),('', 346, 2),('', 265, 2),#TUN-- # LAST TWO PHONEMES HERE HAVE A TONE THAT DOES NOT FIT WITH THE REST OF THE DIALOG
+    ('', 360, 2), ('', 473, 2),('K', 515, 2),('', 538, 2),('Y', 575, 2),('AO', 844, 2), #S-CURE # EH HAS A TONE THAT STRECHES THEM BEYOND PURPOSE, there is a voiceless alveolar lateral fricative between K and Y
+    ('EH', 962, 2), ('', 1024, 2), ('S', 1149, 2), ('IY', 1248, 2),('V', 1312, 2), ('IY', 1458, 2),#MCV # M sound is a bit ambigous
+    ('AA', 1598, 2),('N', 1681, 2),  #EN
+    ('R', 1721, 2), ('UH', 1918, 2), ('T', 2025, 2),#ROUTE
+    ('', 2078, 1), 
+], names=('phoneme', 'timing', 'priority'))
+
+filepath = path.join(config_yaml['speech02'], '01-n024.aud')
+mutants_located = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+
+mutants_located_rec = np.rec.array([
+    ('M', 52, 2),('Y', 127, 2), ('UW', 279, 2),('T', 341, 2),('AE', 374, 0),('N', 489, 2),('S', 607, 2),#TUN-- # LAST TWO PHONEMES HERE HAVE A TONE THAT DOES NOT FIT WITH THE REST OF THE DIALOG
+    ('L', 690, 2), ('OW', 888, 2),('K', 984, 2),('EY', 1140, 2),('', 1176, 2),('', 1241, 2),('', 1364, 2), #S-CURE # EH HAS A TONE THAT STRECHES THEM BEYOND PURPOSE, there is a voiceless alveolar lateral fricative between K and Y
+    ('', 1380, 1), 
 ], names=('phoneme', 'timing', 'priority'))
 
 filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
@@ -102,11 +138,11 @@ nod02_rec = np.rec.array([
     ('B', 2753, 2), ('AY', 2928, 2), #BY
     ('', 2960, 1),
     ('T', 3026, 2), ('IY', 3170, 2),('V', 3258, 2), ('IY', 3367, 2), #TV
-    ('S', 3500, 2),('T', 3565, 1),('EY', 3637, 2),('SH', 3794, 2),('AH', 3806, 2), ('N', 3923, 1), #STATION
+    ('S', 3500, 2),('T', 3565, 1),('EY', 3637, 2),('SH', 3794, 2),('AH', 3806, 2), ('', 3923, 1), #STATION
     ('', 4297, 2),
     ('W', 4365, 2), ('IH', 4488, 2),('DH', 4634, 2), #WITH
     ('DH', 4701, 2), ('UW', 4767, 1), #THE
-    ('B', 4779, 0), ('R', 4816, 1), ('AH', 4914, 1), ('DH', 4951, 2), ('ER', 5043, 1), ('HH', 5059, 1), ('UH', 5150, 2), ('D', 5180, 1), #BROTHERHOOD
+    ('', 4779, 0), ('R', 4816, 1), ('AH', 4914, 1), ('DH', 4951, 2), ('ER', 5043, 1), ('HH', 5059, 1), ('UH', 5150, 2), ('D', 5180, 1), #-ROTHERHOOD
     ('IH', 5242, 2), ('N', 5324, 1),('', 5336, 1), #IN
     ('K', 5431, 2), ('EY', 5561, 2),('', 5572, 0),('AA', 5736, 2),('S', 5895, 1), #CHAOS # SMALL Y BETWEEN EY AND AA
     ('BREATH', 6254, 1), #*BREATH*
@@ -115,12 +151,12 @@ nod02_rec = np.rec.array([
     ('', 1412, 2),('T', 1458, 2), ('UW', 1559, 2), #TO
     ('D', 7304, 1),('IH', 7381, 2),('V', 7450, 2),('AY', 7751, 2),('D', 7800, 2), #DIVIDE
     ('HH', 7829, 1), ('AH', 7900, 1),('S', 8006, 2),('AE', 8119, 2),('N', 8215, 2), #HASSAN
-    ('F', 8282, 1), ('R', 8322, 0), ('M', 8376, 2), #FR-M
+    ('F', 8282, 1), ('', 8322, 0), ('M', 8366, 2), #F--M
     ('HH', 8408, 1), ('I', 8412, 2), ('S', 8556, 2), #HIS
     ('F', 8594, 1), ('AH', 8679, 2), ('L', 8790, 1), ('OW', 8853, 2),('ER', 8902, 2), ('S', 8994, 1), #FOLLOWER
     ('BREATH', 9229, 1), #*BREATH*
     ('P', 9261, 1), ('R', 2292, 2),  ('EH', 9342, 2),  ('Z', 9417, 2),  ('EH', 9497, 2), ('N', 9579, 2), ('S', 9678, 2),('IH', 9716, 0), ('T', 9752, 1), #PRESEN-S IT-
-    ('S', 9876, 1),('EH', 9919, 1), ('L', 10041, 2), ('F', 10190, 2), #-SELF
+    ('S', 9876, 1),('EH', 9919, 1), ('L', 10041, 2), ('', 10190, 0), #-SEL-
     ('', 10670, 1), #*PAUSE*
     ('K', 10712, 2), ('AE', 10935, 2), ('P', 10954, 2), ('CH', 11072, 2),('ER', 11173, 2), #CAPCHURE
     ('DH', 11201, 2), ('UW', 11293, 1), #THE
@@ -134,9 +170,9 @@ nod02_rec = np.rec.array([
     ('L', 13292, 1), ('OY', 13480, 2), ('AE', 13506, 0), ('L', 13580, 2),('', 13596, 2), #LOYAL
     ('T', 13639, 2), ('UH', 13727, 0), ('', 13738, 0), #TO
     ('K', 13792, 2), ('EY', 13876, 2), ('N', 14017, 2), ('S', 14125, 2), #KANE'S
-    ('T', 14154, 2), ('EH', 14235, 0), ('K', 14380, 0), #TECH-
-    ('N', 14408, 2), ('AA', 14509, 0), ('L', 14546, 0), ('IH', 14662, 1), ('JH', 14715, 2), ('IH', 14913, 0), #-NOLIHGIH # THE LAST IY MIXES WITH THE AA OF 'OF', WHOSE F IS ABSENT
-    ('', 14963, 0), ('P', 15010, 2), ('IY', 15215, 0), ('S', 15385, 0), #PEACE
+    ('T', 14154, 2), ('EH', 14235, 0), ('', 14380, 0), #TE--
+    ('N', 14408, 2), ('AA', 14509, 0), ('', 14546, 0), ('IH', 14662, 1), ('JH', 14715, 2), ('IH', 14913, 0), #-NO-IHGIH # THE LAST IY MIXES WITH THE AA OF 'OF', WHOSE F IS ABSENT
+    ('', 14963, 0), ('P', 15010, 2), ('IY', 15215, 0), ('', 15385, 0), #PEA--
     ('BREATH', 15590, 1), #*BREATH*
     ('W', 15633, 1), ('AH', 15705, 1), ('R', 15723, 2),('EH', 15852, 2), #WUH- RE # IH turned into AH, L IS ABSENT
     ('', 15869, 0), ('T', 15941, 2), ('ER', 16106, 2), ('N', 16202, 2), #-TURN
@@ -147,8 +183,8 @@ nod02_rec = np.rec.array([
     #AND AS FOR HASAN'S PATHETIC GUARD, CRUSH THEM (noticably different emotional tone until 20293)
 ], names=('phoneme', 'timing', 'priority'))
 
-all_recordings = [battle_control_offline_rec, unable_to_comply_building_in_progress_rec, qauternery_objective_achieved_rec, building_infiltrated_rec, you_have_lost_rec, low_power_rec, training_rec, nod02_rec]
-all_aud = [battle_control_offline, unable_to_comply_building_in_progress, qauternery_objective_achieved, building_infiltrated, you_have_lost, low_power, training, nod02]
+all_recordings = [battle_control_offline_rec, unable_to_comply_building_in_progress_rec, qauternery_objective_achieved_rec, building_infiltrated_rec, you_have_lost_rec, low_power_rec, training_rec, destroy_the_remainder_of_hassans_guard_rec, tunnel_secure_mcv_en_route_rec, mutants_located_rec]
+all_aud = [battle_control_offline, unable_to_comply_building_in_progress, qauternery_objective_achieved, building_infiltrated, you_have_lost, low_power, training, destroy_the_remainder_of_hassans_guard, tunnel_secure_mcv_en_route, mutants_located]
 
 # substitutes to phonemes that have yet to be identified (some of these are tentative
 similar_phonemes = {
@@ -456,7 +492,10 @@ class TibSunCabal:
                 if len(occurrences) == 0:
                     break
                 chosen_rec_index, start, end = random.choice(occurrences)
-                
+                phonemes_sequence_print = ""
+                for single_phoneme in phonemes[:sequence_length]:
+                    phonemes_sequence_print += single_phoneme
+                print("phoneme[:sequence_length]" + phonemes_sequence_print + " rec index: " + str(chosen_rec_index) + ", clip_start: " + str(start) + ", clip_end: " + str(end))
                 segment = all_aud[chosen_rec_index][start:end]
                 sequence_length += 1
             sequence_length -= 1
@@ -468,7 +507,7 @@ class TibSunCabal:
                 else:
                     succeeding = ""
                 segment, start = self.get_best_single_phoneme(phonemes[0], preceding, succeeding)
-
+            # play(segment.get_array_of_samples(), 22050, blocking=True)
             output = TibSunCabal.append_audio_segment(output, segment, start, audio_out_millis, audio_source_millis)
 
             preceding = phonemes[sequence_length - 1]

@@ -1,4 +1,5 @@
 from sounddevice import play
+import datetime as dt
 
 from tibsuncabal_talk.tibsuncabal import TibSunCabal
 from tibsuncabal_talk.cli_progress import CliProgress
@@ -18,6 +19,7 @@ def main():
                 exit(0)
             else:
                 audio = cabal.load_text(text, progress.update_progress)
+                audio.export("./" + text + str(dt.datetime.now().strftime("%Y%m%d_%H%M%S")) + ".wav", format='wav')
                 play(audio.get_array_of_samples(), audio.frame_rate)
 
     except KeyboardInterrupt:
