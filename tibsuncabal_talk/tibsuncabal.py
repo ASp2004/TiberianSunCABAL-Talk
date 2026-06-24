@@ -6,8 +6,6 @@ import warnings
 from pydub import AudioSegment
 from typing import List, Tuple, Callable, Literal
 
-from sounddevice import play #TODO remove testing element
-
 from tibsuncabal_talk.g2p import G2pProgress
 
 import yaml
@@ -456,14 +454,13 @@ class TibSunCabal:
                     priority += 5
 
                 # check succeeding phonemes
-                source_succeeding = chosen_rec['phoneme'][i + 1] #does this need protection from going out of bounds? TODO: check how empty phonemes are handled 
+                source_succeeding = chosen_rec['phoneme'][i + 1] 
                 if source_succeeding == succeeding:
                     priority += 10
                 # check both phonemes for any vowel
                 elif any(c in source_succeeding for c in "AEIOU") and any(c in succeeding for c in "AEIOU"):
                     priority += 1
 
-                # TODO CABAL has more dialog than Morshu, so we could afford to vary which words are used to avoid fatigue
                 if priority < highest_priority:
                     continue
                 if priority > highest_priority:
@@ -478,9 +475,7 @@ class TibSunCabal:
         phoneme_index = sample[1]
         chosen_rec = all_recordings[source_rec]
         chosen_aud = all_aud[source_rec]
-        # play(chosen_aud.get_array_of_samples(), 22050, blocking=True)
         segment = chosen_aud[chosen_rec['timing'][phoneme_index - 1]: chosen_rec['timing'][phoneme_index]]
-        # play(segment.get_array_of_samples(), 22050, blocking=True)
         return segment, chosen_rec['timing'][phoneme_index - 1]
 
     def append_best_phoneme_segment(self, output: AudioSegment, phonemes: List[str],
@@ -519,14 +514,12 @@ class TibSunCabal:
                 if len(occurrences) == 0:
                     break
                 chosen_rec_index, start, end = random.choice(occurrences)
-                phonemes_sequence_print = ""
-                for single_phoneme in phonemes[:sequence_length]:
-                    phonemes_sequence_print += single_phoneme
-                print("phoneme[:sequence_length]" + phonemes_sequence_print + " rec index: " + str(chosen_rec_index) + ", clip_start: " + str(start) + ", clip_end: " + str(end))
+                # phonemes_sequence_print = ""
+                # for single_phoneme in phonemes[:sequence_length]:
+                #     phonemes_sequence_print += single_phoneme
+                # print("phoneme[:sequence_length]" + phonemes_sequence_print + " rec index: " + str(chosen_rec_index) + ", clip_start: " + str(start) + ", clip_end: " + str(end))
                 chosen_aud = all_aud[chosen_rec_index]
-                # play(chosen_aud.get_array_of_samples(), 22050, blocking=True)
                 segment = chosen_aud[start:end]
-                # play(segment.get_array_of_samples(), 22050, blocking=True)
                 sequence_length += 1
             sequence_length -= 1
 
