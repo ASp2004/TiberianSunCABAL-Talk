@@ -123,6 +123,15 @@ mutants_located_rec = np.rec.array([
     ('', 1380, 1), 
 ], names=('phoneme', 'timing', 'priority'))
 
+filepath = path.join(config_yaml['e01vox01'], '01-n400.aud')
+cabal_online = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+
+cabal_online_rec = np.rec.array([
+    ('K', 44, 2),('AH', 161, 1), ('B', 262, 2),('AE', 594, 2),('L', 840, 0),('', 489, 2),#CABAL
+    ('AA', 1119, 2), ('N', 1163, 2),('L', 1430, 2),('IY', 1607, 2),('', 1876, 2), #ONLI-
+    ('', 1994, 1), 
+], names=('phoneme', 'timing', 'priority'))
+
 filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
 nod02 = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
@@ -183,8 +192,8 @@ nod02_rec = np.rec.array([
     #AND AS FOR HASAN'S PATHETIC GUARD, CRUSH THEM (noticably different emotional tone until 20293)
 ], names=('phoneme', 'timing', 'priority'))
 
-all_recordings = [battle_control_offline_rec, unable_to_comply_building_in_progress_rec, qauternery_objective_achieved_rec, building_infiltrated_rec, you_have_lost_rec, low_power_rec, training_rec, destroy_the_remainder_of_hassans_guard_rec, tunnel_secure_mcv_en_route_rec, mutants_located_rec]
-all_aud = [battle_control_offline, unable_to_comply_building_in_progress, qauternery_objective_achieved, building_infiltrated, you_have_lost, low_power, training, destroy_the_remainder_of_hassans_guard, tunnel_secure_mcv_en_route, mutants_located]
+all_recordings = [battle_control_offline_rec, unable_to_comply_building_in_progress_rec, qauternery_objective_achieved_rec, building_infiltrated_rec, you_have_lost_rec, low_power_rec, training_rec, destroy_the_remainder_of_hassans_guard_rec, tunnel_secure_mcv_en_route_rec, mutants_located_rec, cabal_online_rec, nod02_rec]
+all_aud = [battle_control_offline, unable_to_comply_building_in_progress, qauternery_objective_achieved, building_infiltrated, you_have_lost, low_power, training, destroy_the_remainder_of_hassans_guard, tunnel_secure_mcv_en_route, mutants_located, cabal_online, nod02]
 
 # substitutes to phonemes that have yet to be identified (some of these are tentative
 similar_phonemes = {
@@ -205,6 +214,7 @@ class TibSunCabal:
 
         self.space_length = 20
         self.stop_length = 100
+        self.end_length = 800
 
         self.use_phoneme_priority = True
 
@@ -300,6 +310,8 @@ class TibSunCabal:
                                                       names=('output_time', 'source_clip_index', 'source_time'))
 
         progress_callback(1, progress_total, progress_total)
+        output = self.append_audio_segment(output, AudioSegment.silent(self.end_length), -1, audio_out_millis,
+                                           audio_source_millis)
 
         self.out_audio = output
         return output
@@ -414,7 +426,7 @@ class TibSunCabal:
             chosen_rec = all_recordings[chosen_rec_index]
             phoneme_indices = np.where(chosen_rec['phoneme'] == phoneme)[0]
             if len(phoneme_indices) == 0:
-                return AudioSegment.empty(), 0
+                continue
 
             highest_priority = 0
             for i in phoneme_indices:
@@ -448,12 +460,16 @@ class TibSunCabal:
                     best_samples = []
                 best_samples.append((chosen_rec_index, i))
 
+        if len(best_samples) == 0:
+            return AudioSegment.empty(), 0
         sample = random.choice(best_samples)
         source_rec = sample[0]
         phoneme_index = sample[1]
         chosen_rec = all_recordings[source_rec]
         chosen_aud = all_aud[source_rec]
+        # play(chosen_aud.get_array_of_samples(), 22050, blocking=True)
         segment = chosen_aud[chosen_rec['timing'][phoneme_index - 1]: chosen_rec['timing'][phoneme_index]]
+        # play(segment.get_array_of_samples(), 22050, blocking=True)
         return segment, chosen_rec['timing'][phoneme_index - 1]
 
     def append_best_phoneme_segment(self, output: AudioSegment, phonemes: List[str],
@@ -496,7 +512,10 @@ class TibSunCabal:
                 for single_phoneme in phonemes[:sequence_length]:
                     phonemes_sequence_print += single_phoneme
                 print("phoneme[:sequence_length]" + phonemes_sequence_print + " rec index: " + str(chosen_rec_index) + ", clip_start: " + str(start) + ", clip_end: " + str(end))
-                segment = all_aud[chosen_rec_index][start:end]
+                chosen_aud = all_aud[chosen_rec_index]
+                # play(chosen_aud.get_array_of_samples(), 22050, blocking=True)
+                segment = chosen_aud[start:end]
+                # play(segment.get_array_of_samples(), 22050, blocking=True)
                 sequence_length += 1
             sequence_length -= 1
 
@@ -507,7 +526,7 @@ class TibSunCabal:
                 else:
                     succeeding = ""
                 segment, start = self.get_best_single_phoneme(phonemes[0], preceding, succeeding)
-            # play(segment.get_array_of_samples(), 22050, blocking=True)
+            
             output = TibSunCabal.append_audio_segment(output, segment, start, audio_out_millis, audio_source_millis)
 
             preceding = phonemes[sequence_length - 1]
