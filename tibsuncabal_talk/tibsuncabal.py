@@ -14,9 +14,9 @@ import yaml
 
 g2p = G2pProgress()
 
-path_dirname_config = path.normpath(path.join(path.dirname(__file__), '..'))
+path_dirname_config = path.dirname(__file__)
 path_dirname_config = path.join(path_dirname_config,'config.yaml')
-config_yaml = yaml.load(open(path_dirname_config,'r'))
+config_yaml = yaml.load(open(path_dirname_config,'r'), Loader=yaml.Loader)
 
 filepath = path.join(config_yaml['speech02'], '00-i012.aud')
 battle_control_offline = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
