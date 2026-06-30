@@ -119,27 +119,27 @@ class TibSunCabal:
         ], names=('phoneme', 'timing', 'priority'))
 
         filepath = path.join(config_yaml['speech02'], '01-n128.aud')
-        self.mutants_located = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+        mutants_located = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
-        self.mutants_located_rec = np.rec.array([
+        mutants_located_rec = np.rec.array([
             ('', 0, 2),('M', 52, 2),('Y', 127, 2), ('UW', 279, 2),('T', 341, 2),('AE', 374, 0),('N', 489, 2),('S', 607, 2),#TUN-- # LAST TWO PHONEMES HERE HAVE A TONE THAT DOES NOT FIT WITH THE REST OF THE DIALOG
             ('L', 690, 2), ('', 888, 2),('K', 984, 2),('EY', 1140, 2),('', 1176, 2),('', 1241, 2),('', 1364, 2), #S-CURE # OW is somewhat close to AH but not strong enough to be reclassified EH HAS A TONE THAT STRECHES THEM BEYOND PURPOSE, there is a voiceless alveolar lateral fricative between K and Y
             ('', 1380, 1), 
         ], names=('phoneme', 'timing', 'priority'))
 
         filepath = path.join(config_yaml['e01vox01'], '01-n400.aud')
-        self.cabal_online = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+        cabal_online = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
-        self.cabal_online_rec = np.rec.array([
+        cabal_online_rec = np.rec.array([
             ('', 0, 2),('K', 44, 2),('AH', 161, 1), ('B', 262, 2),('AE', 594, 2),('L', 840, 0),('', 489, 2),#CABAL
             ('AA', 1119, 2), ('N', 1163, 2),('L', 1430, 2),('AY', 1607, 2),('', 1876, 2), #ONLI-
             ('', 1994, 1), 
         ], names=('phoneme', 'timing', 'priority'))
 
         filepath = path.join(config_yaml['sidecd02'], 'nod-02.aud')
-        self.nod02 = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+        nod02 = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
-        self.nod02_rec = np.rec.array([
+        nod02_rec = np.rec.array([
             ('', 0, 2),('HH', 37, 1), ('AH', 153, 0),('S', 279, 2),('AE', 519, 2),('N', 643, 2),('', 648, 0), #HASSAN
             ('C', 455, 2), ('AA', 737, 2), ('M', 830, 1), ('', 838, 1), ('UH', 946, 1), ('N', 976, 1), ('IH', 1081, 2), ('K', 1139, 2), ('EY', 1320, 2), ('T', 1326, 0), ('S', 1391, 1), #COMMUNICATES # there is a small Y between M and UH
             ('', 1412, 2),('T', 1458, 2), ('UW', 1559, 2), #TO
@@ -197,9 +197,9 @@ class TibSunCabal:
         ], names=('phoneme', 'timing', 'priority'))
 
         filepath = path.join(config_yaml['sidecd02'], 'nod-07b.aud')
-        self.nod07b = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
+        nod07b = AudioSegment.from_file(filepath, format="wsaud",codec="adpcm_ima_ws")
 
-        self.nod07b_rec = np.rec.array([
+        nod07b_rec = np.rec.array([
             ('', 0, 2),('', 14418, 2), #excluding most of the track, will complete later
             ('JH', 14543, 2),('IY', 14716, 2),('D', 14766, 2),('IY', 14796, 0),('AY', 15035, 2), #GDI
             ('P', 15043, 2),('AH', 15109, 2),('T', 15226, 2),('R', 15248, 2),('AA', 15417, 2),('L', 15489, 2),('S', 15530, 1),#PATROLS
@@ -211,12 +211,12 @@ class TibSunCabal:
                                qauternery_objective_achieved_rec, building_infiltrated_rec, 
                                you_have_lost_rec, low_power_rec, training_rec, 
                                destroy_the_remainder_of_hassans_guard_rec, tunnel_secure_mcv_en_route_rec, 
-                               mutants_located_rec, cabal_online_rec, nod02_rec, nod07_rec]
+                               mutants_located_rec, cabal_online_rec, nod02_rec, nod07b_rec]
         self.all_aud = [battle_control_offline, unable_to_comply_building_in_progress, 
                         qauternery_objective_achieved, building_infiltrated, 
                         you_have_lost, low_power, training, 
                         destroy_the_remainder_of_hassans_guard, tunnel_secure_mcv_en_route, 
-                        mutants_located, cabal_online, nod02, nod07]
+                        mutants_located, cabal_online, nod02, nod07b]
 
         # substitutes to phonemes that have yet to be identified (some of these are tentative
         self.similar_phonemes = {'ZH': ['CH'],}
@@ -290,7 +290,7 @@ class TibSunCabal:
         progress_total = len(phonemes)
 
         # output audio
-        output = AudioSegment.empty().set_frame_rate(all_aud[0].frame_rate) #rate is 22050Hz
+        output = AudioSegment.empty().set_frame_rate(self.all_aud[0].frame_rate) #rate is 22050Hz
 
         # milliseconds marking each time a new audio segment is used
         audio_out_millis = []
@@ -356,7 +356,7 @@ class TibSunCabal:
     #     return morshu_frame
 
     @staticmethod
-    def substitute_similar_phonemes(phonemes: List[str]):
+    def substitute_similar_phonemes(phonemes: List[str], similar_phonemes):
         """
         Parse through a list of phonemes and replace them if necessary.
 
@@ -406,7 +406,7 @@ class TibSunCabal:
         return audio_out
 
     @staticmethod
-    def get_phoneme_sequence_occurrences(phonemes: List[str]) -> List[Tuple[int, int]]:
+    def get_phoneme_sequence_occurrences(phonemes: List[str], all_recordings) -> List[Tuple[int, int]]:
         """
         Get all occurrences of a given phoneme segment in the source audio.
         :return: List of tuples containing (source_index, start_millis, end_millis)
@@ -441,8 +441,8 @@ class TibSunCabal:
         """
         # list of phoneme indices of the highest priority
         best_samples = []
-        for chosen_rec_index in range(len(all_recordings)):
-            chosen_rec = all_recordings[chosen_rec_index]
+        for chosen_rec_index in range(len(self.all_recordings)):
+            chosen_rec = self.all_recordings[chosen_rec_index]
             phoneme_indices = np.where(chosen_rec['phoneme'] == phoneme)[0]
             if len(phoneme_indices) == 0:
                 continue
@@ -483,8 +483,8 @@ class TibSunCabal:
         sample = random.choice(best_samples)
         source_rec = sample[0]
         phoneme_index = sample[1]
-        chosen_rec = all_recordings[source_rec]
-        chosen_aud = all_aud[source_rec]
+        chosen_rec = self.all_recordings[source_rec]
+        chosen_aud = self.all_aud[source_rec]
         segment = chosen_aud[chosen_rec['timing'][phoneme_index - 1]: chosen_rec['timing'][phoneme_index]]
         return segment, chosen_rec['timing'][phoneme_index - 1]
 
@@ -505,7 +505,7 @@ class TibSunCabal:
 
         :return: The audio segment with the new segment appended to it.
         """
-        phonemes = TibSunCabal.substitute_similar_phonemes(phonemes)
+        phonemes = TibSunCabal.substitute_similar_phonemes(phonemes, self.similar_phonemes)
         if len(phonemes) == 1:
             segment, start = self.get_best_single_phoneme(phonemes[0])
             return TibSunCabal.append_audio_segment(output, segment, start, audio_out_millis, audio_source_millis)
@@ -520,7 +520,7 @@ class TibSunCabal:
 
             start = 0
             while sequence_length <= len(phonemes):
-                occurrences = TibSunCabal.get_phoneme_sequence_occurrences(phonemes[:sequence_length])
+                occurrences = TibSunCabal.get_phoneme_sequence_occurrences(phonemes[:sequence_length], self.all_recordings)
                 if len(occurrences) == 0:
                     break
                 chosen_rec_index, start, end = random.choice(occurrences)
@@ -528,7 +528,7 @@ class TibSunCabal:
                 # for single_phoneme in phonemes[:sequence_length]:
                 #     phonemes_sequence_print += single_phoneme
                 # print("phoneme[:sequence_length]" + phonemes_sequence_print + " rec index: " + str(chosen_rec_index) + ", clip_start: " + str(start) + ", clip_end: " + str(end))
-                chosen_aud = all_aud[chosen_rec_index]
+                chosen_aud = self.all_aud[chosen_rec_index]
                 segment = chosen_aud[start:end]
                 sequence_length += 1
             sequence_length -= 1
