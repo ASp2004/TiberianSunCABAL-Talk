@@ -81,3 +81,8 @@ This uses the following libraries:
 * [Pydub](http://pydub.com/)
 * [sounddevice](https://pypi.org/project/sounddevice/)
 * [PySide 6 (Qt for Python)](https://wiki.qt.io/Qt_for_Python)
+
+## Additional Credits
+* Milton James: CABAL's original voice actor
+* Paul S. Mudra: Sound Designer & Audio Director for Command & Conquer: Tiberian Sun
+* Dwight Kenichi Okahara: Sound Designer for Command & Conquer: Tiberian Sun
