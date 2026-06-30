@@ -7,8 +7,10 @@ concatenates the segments of Morshu's audio where he speaks those phonemes.
 
 ## Requirements
 Python 3.13+ (tested on Windows)
+A copy of [Command & Conquer: Tiberian Sun](https://cnc-comm.com/tiberian-sun/downloads/the-game/installer) (released as freeware in 2010).
+The [XCC Utilities](https://cnc-comm.com/command-and-conquer/downloads/modding-tools/XCC-utilities).
 
-## Installation
+## Installation and Setup
 ### Python Package
 Clone this repo and run the setup script:
 
@@ -19,14 +21,35 @@ will also need to install PySide6. (It's not included by default because it's a 
 
     pip install PySide6
 
+### Linking Audio Files
+Following the above link to install the XCC Utilities. Find XCC Mixer (not Mix Editor), use it to open TIBSUN.mix, and extract speech02.mix and sidecd02.mix. The file e01vox01.mix is also needed.
+
+You will need to extract the following .aud files from each given archive to a corresponding folder:
+#### speech02
+* 00-i012.aud 
+* 00-i014.aud
+* 00-i024.aud
+* 00-i062.aud
+* 00-i064.aud
+* 00-i106.aud
+* 00-i286.aud
+* 01-n024.aud
+* 01-n128.aud
+* 01-n130.aud
+
+##### e01vox01
+* 01-n400.aud
+
+#### sidecd02
+* nod-02.aud
+* nod-07b.aud
+
 ## Running
 ### Python Package
-Installing the package will add the commands `tibsuncabal_talk`  to your command-line. If those commands
+Installing the package will add the command `tibsuncabal_talk`  to your command-line. If that command
 don't work, you can run the modules with `python -m tibsuncabal_talk`.
 
-#### Command-Line
-Run `tibsuncabal_talk` to load the interactive command-line app. Simply type whatever lines you want Morshu to speak, then he
-will talk. To exit, leave the line blank and hit enter.
+Simply type whatever lines you want CABAL to speak, then he will talk. To exit, leave the line blank and hit enter.
 
 ## Building
 1. Clone this repo.
