@@ -81,6 +81,8 @@ This uses the following libraries:
 * [Pydub](http://pydub.com/)
 * [sounddevice](https://pypi.org/project/sounddevice/)
 * [PySide 6 (Qt for Python)](https://wiki.qt.io/Qt_for_Python)
+* [audioop](https://pypi.org/project/audioop-lts/)
+* [pyyaml](https://pypi.org/project/pyaml/)
 
 ## Additional Credits
 * Milton James: CABAL's original voice actor
