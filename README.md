@@ -1,9 +1,9 @@
 # Tiberian Sun CABAL - Talk
 
-A currently unfinished fork of MorshuTalk intended to apply the logic proved in the original to CABAL from Tiberian Sun, played by Milton James.
+A fork of MorshuTalk intended to apply the phoneme remapping concept proved in the original to CABAL from Tiberian Sun, played by Milton James.
 
 This program works by converting the given text into phonemes with [g2p_en](https://pypi.org/project/g2p-en/), then
-concatenates the segments of Morshu's audio where he speaks those phonemes.
+concatenates the annotated segments of CABAL's audio to construct the intended sentence.
 
 ## Requirements
 Python 3.13+ (tested on Windows)

@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name="TiberianSunCABAL-Talk",
-    version="0.0.1",
+    version="0.1.0",
     author="ASp2004",
     description="CABAL (Milton James) text-to-speech",
     long_description=long_description,
