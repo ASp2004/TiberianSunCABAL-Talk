@@ -47,6 +47,8 @@ class G2pProgress(G2p):
             if re.search("[a-z]", word) is None:
                 pron = [word]
 
+            elif word == "cabal":
+                pron = ["CABAL"]
             elif word in self.homograph2features:  # Check homograph
                 pron1, pron2, pos1 = self.homograph2features[word]
                 if pos.startswith(pos1):

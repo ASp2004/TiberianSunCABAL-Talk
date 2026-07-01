@@ -12,6 +12,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ASp2004/TiberianSunCABAL-Talk",
     packages=["tibsuncabal_talk"],
+    package_data={"tibsuncabal_talk": ["config.yaml"]},
     entry_points={
         "console_scripts": ["tibsuncabal_talk=tibsuncabal_talk.__main__:main"],
     },
